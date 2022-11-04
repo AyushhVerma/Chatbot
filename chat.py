@@ -6,7 +6,7 @@ from model import NNModel
 from utils import bag_of_words, tokenize
 from streamlit_chat import message
 
-st.title("BOTHEAD")
+st.title("BARISTA")
 device = torch.device('cpu')
 
 with open('intents.json', 'r') as file:
@@ -25,7 +25,7 @@ model = NNModel(input_size, output_size, hidden_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
-bot_name = 'BOTHEAD'
+bot_name = 'BARISTA'
 
 st.write("let's chat. Type quit to exit.")
 
