@@ -55,17 +55,13 @@ def getResponse(sentence):
         return f"{bot_name}: I do not understand"
 user_input = get_data(i)
 
+if user_input == 'quit':
+    st.session_state['generated'] = []
+
 if user_input:
-    if user_input == 'quit':
-        for intent in intents['intents']:
-            if 'goodbye' == intent['tag']:
-                message(f"{bot_name}: {random.choice(intent['responses'])}")
-                break
-        st.session_state['generated'] = []
-    else:
-        out = getResponse(user_input)
-        st.session_state.past.append(user_input)
-        st.session_state.generated.append(out)
+    out = getResponse(user_input)
+    st.session_state.past.append(user_input)
+    st.session_state.generated.append(out)
 
 if st.session_state['generated']:
     for i in range(len(st.session_state['generated'])-1, -1, -1):
