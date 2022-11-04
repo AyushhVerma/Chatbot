@@ -57,11 +57,11 @@
           "We accept most major credit cards, and Paypal"
         ]
       },
-        {"tag":"request",
-         "pattern":[
+        {"tag":"requests",
+         "patterns":[
              "can i get a tea?",
             "Can i get a coffee?",
-            "can i have a",
+            "can i have a cup of ",
             "i'll have a",
             "i want a",
             "cuppuchino","latte","tea","espresso","irish","galao"
