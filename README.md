@@ -1,6 +1,6 @@
 # Chatbot
 
-About bot:
+About bot: TBA
 
 About intents:
 Tags - category of texts
