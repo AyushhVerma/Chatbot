@@ -34,13 +34,14 @@
       {
         "tag": "items",
         "patterns": [
-          "Which items do you have?",
+          "What is in the store?",
+          "Which do you have?",
           "What kinds of items are there?",
           "What do you sell?"
         ],
         "responses": [
           "We sell coffee and tea",
-          "We have coffee and tea"
+          "We have coffee and tea",
         ]
       },
       {
@@ -56,6 +57,21 @@
           "We accept most major credit cards, and Paypal"
         ]
       },
+        {"tag":"request",
+         "pattern":[
+             "can i get a tea?",
+            "Can i get a coffee?"
+            "can i have a",
+            "i'll have a",
+            "i want a",
+            "cuppuchino","latte","tea","espresso","irish","galao"
+            ],
+         "responses":
+         [
+             "Sure, delivery will take an hour",
+             "We are all out of it"
+         ]
+        },
       {
         "tag": "delivery",
         "patterns": [
@@ -64,8 +80,8 @@
           "When do I get my delivery?"
         ],
         "responses": [
-          "Delivery takes 2-4 days",
-          "Shipping takes 2-4 days"
+          "Delivery takes 1-2 hour",
+          "Shipping takes 1-2 hour"
         ]
       },
       {
