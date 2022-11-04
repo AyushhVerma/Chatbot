@@ -1,9 +1,12 @@
+import streamlit as st
 import random
 import json
 import torch
-from model import Model
+from model import NNModel
 from utils import bag_of_words, tokenize
+from streamlit_chat import message
 
+st.title("BOTHEAD")
 device = torch.device('cpu')
 
 with open('intents.json', 'r') as file:
@@ -18,17 +21,23 @@ words = data['words']
 tags = data['tags']
 model_state = data['model_state']
 
-model = Model(input_size, output_size, hidden_size).to(device)
+model = NNModel(input_size, output_size, hidden_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
-bot_name = 'Eren'
-print("let's chat. Type quit to exit.")
+bot_name = 'BOTHEAD'
 
-while True:
-    sentence = input("You : ")
-    if sentence == 'quit':
-        break
+st.write("let's chat. Type quit to exit.")
+
+if 'generated' not in st.session_state:
+    st.session_state['generated'] = []
+if 'past' not in st.session_state:
+    st.session_state['past'] = []
+i = 0
+
+get_data = lambda i: st.text_input(label='You: ', key=str(i))
+
+def getResponse(sentence):
     sentence = tokenize(sentence)
     X = bag_of_words(sentence, words)
     X = X.reshape(1, X.shape[0])
@@ -41,6 +50,24 @@ while True:
     if prob.item() > 0.70:
         for intent in intents['intents']:
             if tag == intent['tag']:
-                print(f"{bot_name}: {random.choice(intent['responses'])}")
+                return (f"{bot_name}: {random.choice(intent['responses'])}")
     else:
-        print(f"{bot_name} : I do not understand")
+        return f"{bot_name}: I do not understand"
+user_input = get_data(i)
+
+if user_input:
+    if user_input == 'quit':
+        for intent in intents['intents']:
+            if 'goodbye' == intent['tag']:
+                message(f"{bot_name}: {random.choice(intent['responses'])}")
+                break
+        st.session_state['generated'] = []
+    else:
+        out = getResponse(user_input)
+        st.session_state.past.append(user_input)
+        st.session_state.generated.append(out)
+
+if st.session_state['generated']:
+    for i in range(len(st.session_state['generated'])-1, -1, -1):
+        message(st.session_state["generated"][i], key=str(i)+'_')
+        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
