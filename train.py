@@ -12,7 +12,7 @@ import torch
 # import string
 import numpy as np
 import torch.nn as nn
-from model import Model
+from model import NNModel
 from utils import bag_of_words, stem, tokenize
 from torch.utils.data import Dataset, DataLoader
 
@@ -72,7 +72,7 @@ dataset = ChatDataset()
 # device = torch.device('cuda' if torch.cuda.is_available else 'cpu')
 device = torch.device('cpu')
 train_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True, num_workers=0)
-model = Model(input_size, hidden_size, output_size).to(device)
+model = NNModel(input_size, hidden_size, output_size).to(device)
 criterion = nn.CrossEntropyLoss()
 print(model.parameters())
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, )
