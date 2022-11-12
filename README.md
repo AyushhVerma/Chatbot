@@ -1,6 +1,7 @@
 # Chatbot
 
-About bot: TBA
+About bot: 
+Conversational chatbot model for a small coffee shop buisness. Uses intents model as classifier to handle responses
 
 About intents:
 Tags - category of texts
